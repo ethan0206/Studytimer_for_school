@@ -1,4 +1,4 @@
-// ===== 시간표 (실제 시계 기준) =====
+// ===== 시간표 (고정, 실제 시계 기준) =====
 const schedule = [
   { name: "1교시", start: "08:40", end: "10:00" },
   { name: "쉬는시간", start: "10:00", end: "10:20" },
@@ -17,17 +17,9 @@ const currentEl = document.getElementById("current");
 const timetableEl = document.getElementById("timetable");
 
 // ===== 종소리 =====
-const bell = new Audio("sounds/bell.mp3");
+const bell = new Audio("sounds/Bell.mp3");
 let soundEnabled = false;
 let lastIndex = -1;
-
-// ===== 시간 문자열 → Date =====
-function toDate(timeStr) {
-  const [h, m] = timeStr.split(":").map(Number);
-  const now = new Date();
-  now.setHours(h, m, 0, 0);
-  return now;
-}
 
 // ===== 시간표 UI 생성 =====
 schedule.forEach(item => {
@@ -36,19 +28,26 @@ schedule.forEach(item => {
   timetableEl.appendChild(li);
 });
 
-// ===== 메인 업데이트 =====
-function updateByRealTime() {
+// ===== HH:MM → Date =====
+function toDate(t) {
+  const [h, m] = t.split(":").map(Number);
+  const d = new Date();
+  d.setHours(h, m, 0, 0);
+  return d;
+}
+
+// ===== 실제 시계 기준 업데이트 =====
+function update() {
   const now = new Date();
-  let activeIndex = -1;
+  let active = -1;
 
   schedule.forEach((item, i) => {
-    const start = toDate(item.start);
-    const end = toDate(item.end);
+    const s = toDate(item.start);
+    const e = toDate(item.end);
 
-    if (now >= start && now < end) {
-      activeIndex = i;
-
-      const diff = Math.floor((end - now) / 1000);
+    if (now >= s && now < e) {
+      active = i;
+      const diff = Math.floor((e - now) / 1000);
       const min = String(Math.floor(diff / 60)).padStart(2, "0");
       const sec = String(diff % 60).padStart(2, "0");
 
@@ -57,38 +56,34 @@ function updateByRealTime() {
     }
   });
 
-  // 시간표 외 시간
-  if (activeIndex === -1) {
+  if (active === -1) {
     timeEl.textContent = "--:--";
     currentEl.textContent = "시간표 외 시간";
   }
 
-  // 강조 표시
   [...timetableEl.children].forEach((li, i) => {
-    li.classList.toggle("active", i === activeIndex);
+    li.classList.toggle("active", i === active);
   });
 
-  // 구간 변경 시 종소리
-  if (soundEnabled && activeIndex !== lastIndex && activeIndex !== -1) {
+  if (soundEnabled && active !== lastIndex && active !== -1) {
     bell.currentTime = 0;
     bell.play();
   }
 
-  lastIndex = activeIndex;
+  lastIndex = active;
 }
 
-// ===== 종소리 토글 =====
+// ===== 버튼 =====
 document.getElementById("soundToggle").onclick = function () {
   soundEnabled = !soundEnabled;
   this.textContent = soundEnabled ? "🔔 종소리 ON" : "🔕 종소리 OFF";
 };
 
-// ===== 테스트 =====
 document.getElementById("testBell").onclick = () => {
   bell.currentTime = 0;
   bell.play();
 };
 
-// ===== 1초마다 실제 시계 체크 =====
-updateByRealTime();
-setInterval(updateByRealTime, 1000);
+// ===== 실행 =====
+update();
+setInterval(update, 1000);
