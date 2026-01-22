@@ -3,14 +3,40 @@ body {
   background: #111;
   color: #fff;
   font-family: Arial, sans-serif;
+}
+
+.wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
 }
 
-.container {
-  text-align: center;
+.timetable {
+  width: 40%;
+  padding: 20px;
+  background: #1a1a1a;
+}
+
+.timetable ul {
+  list-style: none;
+  padding: 0;
+}
+
+.timetable li {
+  padding: 8px;
+  opacity: 0.6;
+}
+
+.timetable li.active {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.timer {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #time {
@@ -18,7 +44,7 @@ body {
   margin: 20px 0;
 }
 
-#period {
+#current {
   font-size: 1.5rem;
   opacity: 0.8;
 }
@@ -30,8 +56,4 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.8;
 }
