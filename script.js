@@ -17,7 +17,7 @@ const currentEl = document.getElementById("current");
 const timetableEl = document.getElementById("timetable");
 
 // ===== 종소리 =====
-const bell = new Audio("sounds/Bell.mp3");
+const bell = new Audio("Bell.mp3");
 let soundEnabled = false;
 let lastIndex = -1;
 
