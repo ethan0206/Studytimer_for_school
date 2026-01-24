@@ -6,24 +6,19 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="container">
+    <h1>Study Timetable</h1>
 
-<div class="wrapper">
+    <div id="period">스터디 타이머</div>
+    <div id="time">00:00:00</div>
 
-  <div class="timetable">
-    <h2>📅 Study Timetable</h2>
-    <ul id="timetable"></ul>
+    <div class="buttons">
+      <button id="bellToggle">종소리 OFF</button>
+      <button id="bellTest">종소리 테스트</button>
+    </div>
   </div>
 
-  <div class="timer">
-    <div id="current">---</div>
-    <div id="time">--:--</div>
-
-    <button id="soundToggle">🔕 종소리 OFF</button>
-    <button id="testBell">종소리 테스트</button>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+  <!-- JS는 body 맨 아래 (중요) -->
+  <script src="script.js"></script>
 </body>
 </html>
