@@ -6,19 +6,37 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Study Timetable</h1>
+  <div class="wrapper">
+    <!-- 왼쪽 시간표 -->
+    <div class="timetable">
+      <h2>시간표</h2>
+      <ul>
+        <li>1교시 08:40 - 10:00</li>
+        <li>쉬는시간 10:00 - 10:20</li>
+        <li>2교시 10:20 - 11:30</li>
+        <li>점심 11:30 - 12:30</li>
+        <li>3교시 12:30 - 13:40</li>
+        <li>쉬는시간 13:40 - 14:00</li>
+        <li>4교시 14:00 - 15:10</li>
+        <li>쉬는시간 15:10 - 15:30</li>
+        <li>5교시 15:30 - 16:30</li>
+      </ul>
+    </div>
 
-    <div id="period">스터디 타이머</div>
-    <div id="time">00:00:00</div>
+    <!-- 오른쪽 타이머 -->
+    <div class="container">
+      <h1>Study Timetable</h1>
+      <div id="period">수업 없음</div>
+      <div id="time">00:00:00</div>
 
-    <div class="buttons">
-      <button id="bellToggle">종소리 OFF</button>
-      <button id="bellTest">종소리 테스트</button>
+      <div class="buttons">
+        <button id="bellToggle">종소리 OFF</button>
+        <button id="bellTest">종소리 테스트</button>
+      </div>
     </div>
   </div>
 
-  <!-- JS는 body 맨 아래 (중요) -->
   <script src="script.js"></script>
 </body>
+
 </html>
