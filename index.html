@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Study Timer</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- 1️⃣ 전체 컨테이너 -->
-  <div id="container">
-
-    <!-- 2️⃣ 왼쪽: 시간표 -->
-    <div id="timetable">
-      <h2>시간표</h2>
-      <ul>
-        <li>1교시 10:00 ~ 11:00</li>
-        <li>2교시 11:20 ~ 12:20</li>
-        <li>점심 12:20 ~ 13:20</li>
-        <li>3교시 13:20 ~ 14:20</li>
-      </ul>
-    </div>
-
-    <!-- 3️⃣ 오른쪽: 타이머 -->
-    <div id="timer">
-      <h1 id="title">스터디 타이머</h1>
-      <div id="time">00:00</div>
-      <button id="startBtn">START</button>
-    </div>
-
+<div id="container">
+  <!-- 왼쪽 시간표 -->
+  <div id="timetable">
+    <h2>시간표</h2>
+    <ul>
+      <li data-start="10:00" data-end="11:00">1교시 10:00 ~ 11:00</li>
+      <li data-start="11:20" data-end="12:20">2교시 11:20 ~ 12:20</li>
+      <li data-start="12:20" data-end="13:20">점심시간</li>
+      <li data-start="13:20" data-end="14:20">3교시 13:20 ~ 14:20</li>
+    </ul>
   </div>
 
-  <script src="script.js"></script>
+  <!-- 오른쪽 타이머 -->
+  <div id="timer">
+    <h1>스터디 타이머</h1>
+    <div id="clock">--:--:--</div>
+    <div id="period">현재 교시 없음</div>
+  </div>
+</div>
+
+<!-- 종소리 -->
+<audio id="bell" src="bell.mp3"></audio>
+
+<script src="script.js"></script>
 </body>
 </html>
