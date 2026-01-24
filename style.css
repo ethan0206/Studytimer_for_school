@@ -5,39 +5,55 @@
 body {
   margin: 0;
   height: 100vh;
-  display: flex;
-  flex-direction: row; /* 🔥 가로 정렬 핵심 */
   font-family: Arial, sans-serif;
-  background: black;
+}
+
+#container {
+  display: flex;
+  height: 100vh;
 }
 
 /* 왼쪽 시간표 */
-#left {
+#timetable {
   width: 30%;
-  min-width: 260px;
   background: #111;
   color: white;
   padding: 20px;
-  overflow-y: auto;
+}
+
+#timetable ul {
+  list-style: none;
+  padding: 0;
+}
+
+#timetable li {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+/* 현재 교시 하이라이트 */
+#timetable li.active {
+  background: #00ff88;
+  color: black;
+  font-weight: bold;
 }
 
 /* 오른쪽 타이머 */
-#right {
+#timer {
   width: 70%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  color: white;
+  align-items: center;
 }
 
-/* 시계 */
 #clock {
-  font-size: 70px;
+  font-size: 80px;
+  margin: 20px 0;
 }
 
-/* 상태 */
-#status {
-  font-size: 22px;
-  color: #aaa;
+#period {
+  font-size: 24px;
+  color: #555;
 }
