@@ -1,59 +1,36 @@
 body {
   margin: 0;
+  height: 100vh;
   background: #111;
   color: #fff;
   font-family: Arial, sans-serif;
-}
-
-.wrapper {
   display: flex;
-  height: 100vh;
-}
-
-.timetable {
-  width: 40%;
-  background: #1a1a1a;
-  padding: 20px;
-}
-
-.timetable ul {
-  list-style: none;
-  padding: 0;
-}
-
-.timetable li {
-  padding: 8px;
-  opacity: 0.5;
-}
-
-.timetable li.active {
-  opacity: 1;
-  font-weight: bold;
-}
-
-.timer {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.container {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 30px;
+}
+
+#period {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
 #time {
-  font-size: 4rem;
-  margin: 20px 0;
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 30px;
 }
 
-#current {
-  font-size: 1.5rem;
-  opacity: 0.8;
-}
-
-button {
-  margin: 6px;
+.buttons button {
+  font-size: 16px;
   padding: 10px 18px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: none;
+  margin: 0 5px;
   cursor: pointer;
 }
