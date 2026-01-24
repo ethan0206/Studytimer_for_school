@@ -1,31 +1,43 @@
-.wrapper {
-  display: flex;
-  height: 100vh;
-}
-
-.timetable {
-  width: 260px;
-  background: #1a1a1a;
-  padding: 20px;
+* {
   box-sizing: border-box;
 }
 
-.timetable h2 {
-  margin-top: 0;
-  margin-bottom: 15px;
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: row; /* 🔥 가로 정렬 핵심 */
+  font-family: Arial, sans-serif;
+  background: black;
 }
 
-.timetable ul {
-  list-style: none;
-  padding: 0;
-  line-height: 1.8;
-  font-size: 14px;
+/* 왼쪽 시간표 */
+#left {
+  width: 30%;
+  min-width: 260px;
+  background: #111;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
 }
 
-.container {
-  flex: 1;
+/* 오른쪽 타이머 */
+#right {
+  width: 70%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* 시계 */
+#clock {
+  font-size: 70px;
+}
+
+/* 상태 */
+#status {
+  font-size: 22px;
+  color: #aaa;
 }
