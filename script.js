@@ -1,82 +1,81 @@
-/* =========================
-   실시간 시계 표시
-========================= */
-function updateClock() {
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2, "0");
-  const m = String(now.getMinutes()).padStart(2, "0");
-  const s = String(now.getSeconds()).padStart(2, "0");
+// ===== 종소리 =====
+const bell = new Audio("Bell.mp3");
+bell.volume = 0.8;
+let bellEnabled = false;
 
-  const clockEl = document.getElementById("clock");
-  if (clockEl) clockEl.innerText = `${h}:${m}:${s}`;
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-
-
-/* =========================
-   시간표 (실제 시계 기준)
-========================= */
-const schedule = [
-  { name: "1교시", start: "10:00", end: "11:00" },
-  { name: "쉬는시간", start: "11:00", end: "11:20" },
-  { name: "2교시", start: "11:20", end: "12:20" },
-  { name: "점심시간", start: "12:20", end: "13:20" },
-  { name: "3교시", start: "13:20", end: "14:20" }
+// ===== 시간표 (실제 시계 기준) =====
+const timetable = [
+  { name: "1교시", start: "08:40", end: "10:00" },
+  { name: "쉬는시간", start: "10:00", end: "10:20" },
+  { name: "2교시", start: "10:20", end: "11:30" },
+  { name: "점심", start: "11:30", end: "12:30" },
+  { name: "3교시", start: "12:30", end: "13:40" },
+  { name: "쉬는시간", start: "13:40", end: "14:00" },
+  { name: "4교시", start: "14:00", end: "15:10" },
+  { name: "쉬는시간", start: "15:10", end: "15:30" },
+  { name: "5교시", start: "15:30", end: "16:30" }
 ];
 
-let lastPeriod = null;
-
-
-/* =========================
-   시간 계산 유틸
-========================= */
-function timeToMinutes(time) {
-  const [h, m] = time.split(":").map(Number);
+// ===== 유틸 =====
+function toMinutes(t) {
+  const [h, m] = t.split(":").map(Number);
   return h * 60 + m;
 }
 
-function nowToMinutes() {
+let currentIndex = -1;
+
+// ===== 메인 로직 =====
+function updateTimer() {
   const now = new Date();
-  return now.getHours() * 60 + now.getMinutes();
-}
+  const nowMin = now.getHours() * 60 + now.getMinutes();
 
+  for (let i = 0; i < timetable.length; i++) {
+    const start = toMinutes(timetable[i].start);
+    const end = toMinutes(timetable[i].end);
 
-/* =========================
-   현재 교시 판별
-========================= */
-function updatePeriod() {
-  const nowMin = nowToMinutes();
-  let current = "수업 없음";
-
-  for (const p of schedule) {
-    if (
-      nowMin >= timeToMinutes(p.start) &&
-      nowMin < timeToMinutes(p.end)
-    ) {
-      current = p.name;
-
-      if (lastPeriod !== p.name) {
-        playBell();
-        lastPeriod = p.name;
+    if (nowMin >= start && nowMin < end) {
+      if (currentIndex !== i) {
+        currentIndex = i;
+        if (bellEnabled) {
+          bell.currentTime = 0;
+          bell.play();
+        }
       }
-      break;
+
+      const remainMin = end - nowMin;
+      const remainSec = 60 - now.getSeconds();
+
+      document.getElementById("period").innerText = timetable[i].name;
+      document.getElementById("time").innerText =
+        String(remainMin).padStart(2, "0") +
+        ":" +
+        String(remainSec).padStart(2, "0");
+      return;
     }
   }
 
-  const periodEl = document.getElementById("period");
-  if (periodEl) periodEl.innerText = current;
+  // 시간표 밖 → 현재 시각 표시
+  document.getElementById("period").innerText = "스터디 타이머";
+  document.getElementById("time").innerText =
+    String(now.getHours()).padStart(2, "0") + ":" +
+    String(now.getMinutes()).padStart(2, "0") + ":" +
+    String(now.getSeconds()).padStart(2, "0");
+
+  currentIndex = -1;
 }
 
-setInterval(updatePeriod, 1000);
-updatePeriod();
+// ===== 버튼 =====
+document.getElementById("bellToggle").onclick = () => {
+  bellEnabled = !bellEnabled;
+  document.getElementById("bellToggle").innerText =
+    bellEnabled ? "종소리 ON" : "종소리 OFF";
+};
 
+document.getElementById("bellTest").onclick = () => {
+  bell.currentTime = 0;
+  bell.play();
+};
 
-/* =========================
-   종소리
-========================= */
-function playBell() {
-  const audio = new Audio("bell.mp3"); // bell.mp3 같은 폴더
-  audio.play().catch(() => {});
-}
+// ===== 실행 =====
+updateTimer();
+setInterval(updateTimer, 1000);
